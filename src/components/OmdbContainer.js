@@ -1,7 +1,7 @@
 import React from "react";
 import EmployeeData from "./EmployeeDetail";
 import API from "../utils/API";
-
+import moment from "moment"
 
 class OmdbContainer extends React.Component {
   state = {
@@ -17,9 +17,9 @@ class OmdbContainer extends React.Component {
           let efile = {
             name: employeedata[i].name.first + " " + employeedata[i].name.last,
             email: employeedata[i].email,
-            image: employeedata[i].picture.medium,
+            image: <img alt="employee headshot" src={employeedata[i].picture.thumbnail} />,
             city: employeedata[i].location.city,
-            dob: employeedata[i].dob.date,
+            dob: moment(employeedata[i].dob.date).format("DD-MM-YYYY"),
           };
           employeeRecordstemp.push(efile);
         }

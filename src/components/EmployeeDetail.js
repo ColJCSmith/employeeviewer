@@ -33,7 +33,6 @@ const EmployeeData = (props) => {
         field: "dob",
         sort: "asc",
         width: 250,
-        date: "YYYY-MM-DD",
       }
     ],
     rows: props.employees
