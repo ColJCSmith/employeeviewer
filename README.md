@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# EmployeeViewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+EmployeeViewer is a resource management solution, to enable managers within an organisation to keep track of their staff.
 
-## Available Scripts
+## Motivation
+Everyone needs to keep track of their employees, but not everyone can afford SAP to do it.  EmployeeViwer provides a simple React app to manage all the key data about employees and their contact details.
 
-In the project directory, you can run:
+## Functionality
+EmployeeTracker runs in the command line, allowing users to access and interact with data on a SQL server.  The server holds a database with three tables of information (Employees, Roles and Departments). The user picks from a list of options, allowing them to either view, add or update information on this database.
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![EmployeeViewer Screenshot](./public/employeeviewer.png "Screenshot")
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Build status
+Working prototype, requires testing and further development.
 
-### `npm test`
+## Key technologies used
+React
+JavaScript
+Node (esp. mdbreact, moment, axios)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Code Example
+```
+import React from "react";
+import EmployeeData from "./EmployeeDetail";
+import API from "../utils/API";
+import moment from "moment"
 
-### `npm run build`
+class OmdbContainer extends React.Component {
+  state = {
+    employeeRecords: [],
+  };
+  componentDidMount = () => {
+    API.search()
+      .then((response) => {
+        let employeedata = response.data.results;
+        let employeeRecordstemp = [];
+        console.log(employeedata)
+        for (let i = 0; i < employeedata.length; i++) {
+          let efile = {
+            name: employeedata[i].name.first + " " + employeedata[i].name.last,
+            email: employeedata[i].email,
+            image: <img alt="employee headshot" src={employeedata[i].picture.thumbnail} />,
+            city: employeedata[i].location.city,
+            dob: moment(employeedata[i].dob.date).format("DD-MM-YYYY"),
+          };
+          employeeRecordstemp.push(efile);
+        }
+        console.log(employeeRecordstemp);
+        this.setState({ employeeRecords: employeeRecordstemp });
+      });
+  };
+```
+## Installation
+Published at https://coljcsmith.github.io/employeeviewer/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contribute
+Git pull
